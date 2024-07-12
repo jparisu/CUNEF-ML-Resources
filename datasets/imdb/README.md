@@ -25,3 +25,4 @@ The original dataset has been preprocessed to make it easier to work with this d
     - Biography -> History
     - Documentary -> History
 - `adult` column has been calculated for those values that are not `G`, `PG` or `PG-13`:
+- Remove film *3 iditios* because it is an outlier.
