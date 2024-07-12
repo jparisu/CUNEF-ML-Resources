@@ -1,0 +1,9 @@
+[
+  {
+    "listing": "/index.html",
+    "items": [
+      "/presentations/quarto_intro.html",
+      "/notebooks/imdb_visualization.html"
+    ]
+  }
+]

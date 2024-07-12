@@ -1,0 +1,191 @@
+[
+  {
+    "objectID": "notebooks/imdb_visualization.html",
+    "href": "notebooks/imdb_visualization.html",
+    "title": "Aprendizaje Automático",
+    "section": "",
+    "text": "# Import libraries\nimport pandas as pd\nimport seaborn as sns\nimport matplotlib.pyplot as plt\n\n\n# Download the dataset from the URL\nurl = \"https://raw.githubusercontent.com/jparisu/CUNEF-ML-Resources/main/datasets/imdb/imdb.csv\"\ndf = pd.read_csv(url)\n\n\n# Plot the data (convert the 'adult' column to numeric)\ndf['adult_numeric'] = df['adult'].map({'yes': 1, 'no': 0})\nsns.pairplot(df, hue='theme')\n\n/usr/local/lib/python3.10/dist-packages/seaborn/axisgrid.py:123: UserWarning: The figure layout has changed to tight\n  self._figure.tight_layout(*args, **kwargs)\n\n\n\n\n\n\n\n\n\n\n# Plot the whole dataset\n# X axis - budget\n# Y axis - box_office\n# Color - theme\n# Figure (o/x) - adult\n\nsns.scatterplot(data=df, x='budget', y='box_office', hue='theme', style='adult')\n\n\n\n\n\n\n\n\n\n# Plot the whole dataset\n# X axis - year\n# Y axis - budget\n# Color - theme\n# Figure (o/x) - adult\n# Size - box_office\n# Add the name to each point\n\n# Define the colors and figures\ncolors = {'History': 'green', 'Sci-Fi': 'blue', 'Comedy': 'orange'}\nfigures = {'no': 'o', 'yes': 'x'}\n\n# Create the plot\nplt.figure(figsize=(10, 6))\n\nfor i, row in df.iterrows():\n    plt.scatter(row['year'], row['budget'],\n                color=colors[row['theme']],\n                marker=figures[row['adult']],\n                s=row['box_office'] / 1000000, # Scale down the size for better visualization\n                label=row['name'])\n    plt.text(row['year'], row['budget'], row['name'])\n\n# Create legend for themes\ntheme_handles = [plt.Line2D([0], [0], marker='o', color='w', markerfacecolor=color, markersize=10, label=theme)\n                 for theme, color in colors.items()]\n\n# Create legend for adult\nadult_handles = [plt.Line2D([0], [0], marker=marker, color='k', linestyle='None', markersize=10, label=f'Adult: {adult}')\n                 for adult, marker in figures.items()]\n\n# Combine legends\nhandles = theme_handles + adult_handles\nplt.legend(handles=handles)\n\n# Adding labels and title\nplt.xlabel('Year')\nplt.ylabel('Budget')\nplt.title('Movies Dataset')\nplt.grid(True)\nplt.show()\n\n\n\n\n\n\n\n\n\n# Convert theme with one-hot encoding\ndf_num = df[['year', 'budget', 'box_office', 'adult_numeric', 'theme']]\ndf_num = pd.get_dummies(df_num, columns=['theme'], drop_first=False)\n\n# See correlation matrix of numeric columns\ncorr = df_num.corr()\nsns.heatmap(corr, annot=True)"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Index",
+    "section": "",
+    "text": "CUNEF Universidad\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nQuarto introduction\n\n\nBasic features of Quarto and CUNEF template\n\n\n\nJavier París\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "presentations/quarto_intro.html#quarto",
+    "href": "presentations/quarto_intro.html#quarto",
+    "title": "Quarto introduction",
+    "section": "1.1 Quarto",
+    "text": "1.1 Quarto\nQuarto is a document generation tool that allows to create documents in different formats (pdf, html, docx, etc.) using markdown and R code.\n\nIn CUNEF University - Machine Learning subjects we are going to use quarto to generate presentations and material for our students."
+  },
+  {
+    "objectID": "presentations/quarto_intro.html#content-slide",
+    "href": "presentations/quarto_intro.html#content-slide",
+    "title": "Quarto introduction",
+    "section": "2.1 Content slide",
+    "text": "2.1 Content slide\nThis is an slide with content and title"
+  },
+  {
+    "objectID": "presentations/quarto_intro.html#spaces-check",
+    "href": "presentations/quarto_intro.html#spaces-check",
+    "title": "Quarto introduction",
+    "section": "3.1 Spaces check",
+    "text": "3.1 Spaces check\nSome text here. Some text in same line. Some text in next line.\nSome text separated.\nSome text more separated."
+  },
+  {
+    "objectID": "presentations/quarto_intro.html#text-check",
+    "href": "presentations/quarto_intro.html#text-check",
+    "title": "Quarto introduction",
+    "section": "3.2 Text check",
+    "text": "3.2 Text check\nSome text.\nSome bold text.\nSome italic text.\nother italic\ntidel text\ntriple tidel text"
+  },
+  {
+    "objectID": "presentations/quarto_intro.html#itemization",
+    "href": "presentations/quarto_intro.html#itemization",
+    "title": "Quarto introduction",
+    "section": "3.3 Itemization",
+    "text": "3.3 Itemization\n\nSome bullet\nOther bullet\n\nSub bullet\nSub bullet 2\n\nSubsubbullet\n\n\nBig bullet"
+  },
+  {
+    "objectID": "presentations/quarto_intro.html#enumerations",
+    "href": "presentations/quarto_intro.html#enumerations",
+    "title": "Quarto introduction",
+    "section": "3.4 Enumerations",
+    "text": "3.4 Enumerations\n\n\n\nOverview\n\n\nDetails\n\n\nConclusion\n\n\n\n\nenumeration\nother enumeration\n\nsub enum\nother sub enum\n\nsub sub enum\n\n\nbig enum"
+  },
+  {
+    "objectID": "presentations/quarto_intro.html#incremental-itemization",
+    "href": "presentations/quarto_intro.html#incremental-itemization",
+    "title": "Quarto introduction",
+    "section": "3.5 Incremental itemization",
+    "text": "3.5 Incremental itemization\n\n\nSome bullet\nOther bullet\n\nSub bullet"
+  },
+  {
+    "objectID": "presentations/quarto_intro.html#columns",
+    "href": "presentations/quarto_intro.html#columns",
+    "title": "Quarto introduction",
+    "section": "3.6 Columns",
+    "text": "3.6 Columns\n\n\nBig column here with 60% of the window\n\nSmall column here with 40% of the window"
+  },
+  {
+    "objectID": "presentations/quarto_intro.html#links-and-images",
+    "href": "presentations/quarto_intro.html#links-and-images",
+    "title": "Quarto introduction",
+    "section": "4.1 Links and images",
+    "text": "4.1 Links and images\nSome link: google\nSome image:\n\n\n\nThe caption\n\n\n\nSome web image:"
+  },
+  {
+    "objectID": "presentations/quarto_intro.html#colums-with-image",
+    "href": "presentations/quarto_intro.html#colums-with-image",
+    "title": "Quarto introduction",
+    "section": "4.2 Colums with image",
+    "text": "4.2 Colums with image\n\n\n\n\n\nImage 1\n\n\n\n\n\n\nImage 2"
+  },
+  {
+    "objectID": "presentations/quarto_intro.html#tabs",
+    "href": "presentations/quarto_intro.html#tabs",
+    "title": "Quarto introduction",
+    "section": "4.3 Tabs",
+    "text": "4.3 Tabs\n\nTab ATab B\n\n\nThis is tab A\n\n\nThis is tab B"
+  },
+  {
+    "objectID": "presentations/quarto_intro.html#python-code",
+    "href": "presentations/quarto_intro.html#python-code",
+    "title": "Quarto introduction",
+    "section": "5.1 Python Code",
+    "text": "5.1 Python Code\n\n# This is a Python code block\nimport numpy as np\nimport matplotlib.pyplot as plt\n\nr = np.arange(0, 2, 0.01)\ntheta = 2 * np.pi * r\nfig, ax = plt.subplots(\n  subplot_kw = {'projection': 'polar'}\n)\nax.plot(theta, r)\nax.set_rticks([0.5, 1, 1.5, 2])\nax.grid(True)\nplt.show()"
+  },
+  {
+    "objectID": "presentations/quarto_intro.html#r-code",
+    "href": "presentations/quarto_intro.html#r-code",
+    "title": "Quarto introduction",
+    "section": "5.2 R Code",
+    "text": "5.2 R Code\n\n# This is a R code block\n#| label: fig-airquality\n#| fig-cap: \"Temperature and ozone level.\"\n#| warning: false\n\nlibrary(ggplot2)\n\nggplot(airquality, aes(Temp, Ozone)) +\n  geom_point() +\n  geom_smooth(method = \"loess\")"
+  },
+  {
+    "objectID": "presentations/quarto_intro.html#highlighted-code",
+    "href": "presentations/quarto_intro.html#highlighted-code",
+    "title": "Quarto introduction",
+    "section": "5.3 Highlighted code",
+    "text": "5.3 Highlighted code\n\na = 1\nb = 2\nc = a + b\nd = a - b\ne = c - d\nprint(e)\n\n4"
+  },
+  {
+    "objectID": "presentations/quarto_intro.html#code-configuration",
+    "href": "presentations/quarto_intro.html#code-configuration",
+    "title": "Quarto introduction",
+    "section": "5.4 Code configuration",
+    "text": "5.4 Code configuration\n\n\nCode solution without code:\n\n\nCode\na = 1\nb = 2\nc = a + b\nprint(c)\n\n\n3\n\n\n\nCode without solution:\n\na = 1\nb = 2\nc = a + b\nprint(c)"
+  },
+  {
+    "objectID": "presentations/quarto_intro.html#small-slide",
+    "href": "presentations/quarto_intro.html#small-slide",
+    "title": "Quarto introduction",
+    "section": "6.1 Small slide",
+    "text": "6.1 Small slide\nThe text and images in this slide are smaller than usual"
+  },
+  {
+    "objectID": "presentations/quarto_intro.html#scroll-slide",
+    "href": "presentations/quarto_intro.html#scroll-slide",
+    "title": "Quarto introduction",
+    "section": "6.2 Scroll slide",
+    "text": "6.2 Scroll slide\nThe text and images in this slide are scrollable\n\nPoint 1\nPoint 2\nPoint 3\nPoint 4\nPoint 5\nPoint 6\nPoint 7\nPoint 8\nPoint 9\nPoint 10\nPoint 11\nPoint 12\nPoint 13\nPoint 14\nPoint 15"
+  },
+  {
+    "objectID": "presentations/quarto_intro.html#slide-with-notes",
+    "href": "presentations/quarto_intro.html#slide-with-notes",
+    "title": "Quarto introduction",
+    "section": "6.3 Slide with notes",
+    "text": "6.3 Slide with notes\nThis slide has notes and footnotes 1\n\n\n\nThis is a note\nThis is a footnote"
+  },
+  {
+    "objectID": "presentations/quarto_intro.html#tables",
+    "href": "presentations/quarto_intro.html#tables",
+    "title": "Quarto introduction",
+    "section": "7.1 Tables",
+    "text": "7.1 Tables\nTables are made with markdown (do not know why to set it in external, sorry):\n\n\n\nRight\nLeft\nDefault\nCenter\n\n\n\n\n12\n12\n12\n12\n\n\n123\n123\n123\n123\n\n\n1\n1\n1\n1"
+  },
+  {
+    "objectID": "presentations/quarto_intro.html#maths",
+    "href": "presentations/quarto_intro.html#maths",
+    "title": "Quarto introduction",
+    "section": "7.2 Maths",
+    "text": "7.2 Maths\nMath is done with latex:\nInline math \\(\\frac{1}{\\sqrt{2}}\\) and block math:\n\\[E = mc^{2}\\]"
+  },
+  {
+    "objectID": "presentations/quarto_intro.html#diagrams",
+    "href": "presentations/quarto_intro.html#diagrams",
+    "title": "Quarto introduction",
+    "section": "7.3 Diagrams",
+    "text": "7.3 Diagrams\nDiagrams are made by mermaid:\n\n\n\n\n\nflowchart LR\n  A[Hard edge] --&gt; B(Round edge)\n  B --&gt; C{Decision}\n  C --&gt; D[Result one]\n  C --&gt; E[Result two]"
+  },
+  {
+    "objectID": "presentations/quarto_intro.html#html-raw-content",
+    "href": "presentations/quarto_intro.html#html-raw-content",
+    "title": "Quarto introduction",
+    "section": "7.4 HTML raw content",
+    "text": "7.4 HTML raw content"
+  },
+  {
+    "objectID": "presentations/quarto_intro.html#callouts",
+    "href": "presentations/quarto_intro.html#callouts",
+    "title": "Quarto introduction",
+    "section": "7.5 Callouts",
+    "text": "7.5 Callouts\n\n\n\n\n\n\nNote\n\n\nThis is a note\n\n\n\n\n\n\n\n\n\nTip\n\n\nThis is a tip\n\n\n\n\n\n\n\n\n\nWarning\n\n\nThis is a warning\n\n\n\n\n\n\n\n\n\nCaution\n\n\nThis is a caution\n\n\n\n\n\n\n\n\n\nImportant\n\n\nThis is an important"
+  },
+  {
+    "objectID": "presentations/quarto_intro.html#non-stilish-slide",
+    "href": "presentations/quarto_intro.html#non-stilish-slide",
+    "title": "Quarto introduction",
+    "section": "8.1 Non stilish slide",
+    "text": "8.1 Non stilish slide\nStyle of a slide without specific style"
+  },
+  {
+    "objectID": "presentations/quarto_intro.html#stlish-slide",
+    "href": "presentations/quarto_intro.html#stlish-slide",
+    "title": "Quarto introduction",
+    "section": "8.2 Stlish slide",
+    "text": "8.2 Stlish slide\nThe css style could also be used in title slides #Title {.inh_novel} to be applied the tag novel to every slide below.\n\n\n\n\nAA"
+  }
+]

@@ -1,0 +1,162 @@
+
+/* TODO: learn how to make text resize when changing zoom */
+/* body {
+    font-size: calc(1rem + 1vw);
+} */
+.reveal {
+    font-size: calc(3rem - 1vw);
+}
+
+/* Every slide specific style */
+section.level2{
+    /* This is for being able to scroll higher and avoid the ToC*/
+    box-sizing: border-box;
+    padding-bottom: 8%;
+    overflow: auto;
+}
+
+.reveal .smaller {
+    font-size: 0.8em;
+}
+
+/* Title slide specific style */
+.reveal #title-slide {
+    font-size: 2em;  /* Adjust as needed for larger font */
+    text-align: center;  /* Centered text for title slides */
+}
+
+/* Chapter title slide specific style */
+.reveal .title-slide {
+    font-size: 1.9em;
+    text-align: center;
+}
+
+/* Title slide background */
+.reveal .slide-background.quarto-title-block {
+    background-image: url("../images/background.png");
+    opacity: 0.4;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: 1;
+}
+
+/* Non-Chapter title slide background */
+.reveal .slide-background.level2 {
+    background-image: url("../images/background.png");
+    opacity: 0.3;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: 1;
+}
+
+/* Chapter title slide background */
+.reveal .slide-background.level1 {
+    background-image: url("../images/background.png");
+    opacity: 1;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: 1;
+}
+
+/* Common slide specific style */
+.reveal .slide.level2 {
+    font-size: 1em;
+}
+
+.reveal .footer {
+    font-weight: bold;
+    bottom: 1% !important;
+}
+
+.reveal .slide-logo {
+    max-height: 2.9rem !important;
+    /* width: 200% !important; */
+    margin-right: 0.5%;
+    margin-bottom: 2.5%;
+}
+
+.reveal .novel, .reveal .novel h1, .reveal .novel h2, .reveal .inh_novel, .reveal .inh_novel h1, .reveal .inh_novel h2 {
+    font-style: italic;
+    font-family: 'Courier New', Courier, monospace;
+    color: #737056;
+}
+
+/* TODO: learn how to do TOC scrollable */
+/* .reveal #TOC {
+    box-sizing: border-box;
+    padding-bottom: 8%;
+    overflow: auto;
+} */
+
+.highlight {
+    background-color: rgb(212, 212, 161);
+    font-style: bold;
+    font-size: 1.1em;
+    font-weight: bold;
+    border: 4px solid white;
+    padding: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+/******************************************************************
+ * Dynamic ToC
+ ******************************************************************/
+
+.dynamic-toc {
+    background-color: #7c7c7c;
+    padding: 0%;
+    margin: 0%;
+    justify-content: center; /* Equally space the titles */
+    align-items: center;
+    display: flex;
+    overflow: hidden;
+    white-space: normal;
+    text-align: center;
+    z-index: 2;
+}
+
+#dynamic-toc {
+    position: absolute;
+    bottom: 6%;
+    left: 5%;
+    width: 85%;
+    height: 9%;
+    overflow-y: auto;
+    background-color: #7c7c7c;
+    opacity: 70%;
+}
+
+.toc-main-title {
+    flex: 1;
+    text-align: center;
+    white-space: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 0.45em; /* Adjust font size as needed */
+    color: white;
+}
+
+.toc-main-title.toc-highlight {
+    font-size: 0.55em; /* Adjust font size as needed */
+    color: white;
+    font-weight: bold;
+}
+
+/******************************************************************
+ * Tables
+ ******************************************************************/
+
+.vrt-header th {
+    writing-mode: vertical-rl;
+    /* text-orientation: upright; */
+    transform: rotate(190deg); /* Adjust the degree as needed */
+    border: 2px solid black;
+}
+
+.vrt-header td {
+    border: 2px solid black;
+}
