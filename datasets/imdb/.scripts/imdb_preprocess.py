@@ -36,6 +36,7 @@ def convert_to_numeric(value):
 # Equivalent genres
 genre_transformation = {
     'Adventure': 'Action',
+    'Western': 'Action',
     'Animation': 'Family',
     'Biography': 'History',
     'Crime': 'Action',
@@ -52,11 +53,29 @@ genre_transformation = {
     'Romance': 'Family',
 }
 
+genre_priority = [
+    'Fantasy',
+    'History',
+    'Family',
+    'Mystery',
+    'Comedy',
+    'Action',
+    'Drama'
+]
+
 def translation_genre(genre):
     """Transform a genre to its equivalent"""
-    if genre in genre_transformation:
+    if genre in genre_transformation.keys():
         return genre_transformation[genre]
     return genre
+
+def prior_genre(genres):
+    """Get all genres, transform them and take the one with more priority"""
+    gl = set([translation_genre(x) for x in genres.split(',')])
+    for g in genre_priority:
+        if g in gl:
+            return g
+    return ""
 
 ###############################################################################
 
@@ -67,7 +86,7 @@ db_original = pd.read_csv('original_imdb.csv')
 df = db_original.copy()
 
 # Transform genre list
-df['genre'] = df['genre'].apply(lambda x: translation_genre(x.split(',')[0]))
+df['genre'] = df['genre'].apply(lambda x: prior_genre(x))
 
 # Create new column 'adult' based on certificate
 children_cert = ['G', 'PG', 'PG-13']
@@ -94,12 +113,17 @@ df['c_profit'] = (df['box_office']) / df['budget']
 # Change name of box_office to c_box_office
 df = df.rename(columns={'box_office': 'c_box_office'})
 
-# Create new column 'c_profitable' based on profit
-df['c_profitable'] = df['c_profit'].apply(lambda x: 'yes' if x > 1 else 'no')
+# Create new column 'c_performance' based on profit
+df['c_performance'] = df['c_profit'].apply(lambda x: 'great' if x > 2.5 else 'expected' if x > 1 else 'bad')
+
+###############################################################################
+# Save the whole dataset
+df.to_csv('../imdb_all.csv', index=False)
+###############################################################################
 
 # Define the filters
-genres = ['History', 'Comedy', 'Family']
-years = [1980, 1999]
+genres = ['Mystery', 'Family', 'Action']
+years = [1990, 1999]
 
 # Filter films by genre
 df = df[df['genre'].isin(genres)]
@@ -126,11 +150,11 @@ df.to_csv('../imdb.csv', index=False)
 
 # Select specific values
 films = [
-    "Braveheart",
-    "The Big Lebowski",
-    "The Truman Show",
-    "Groundhog Day",
-    "The Elephant Man",
+    "The Iron Giant",
+    "American History X",
+    "Reservoir Dogs",
+    "Heat",
+    "Forrest Gump",
 ]
 
 # Filter the films
