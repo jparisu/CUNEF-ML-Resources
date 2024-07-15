@@ -1,0 +1,6 @@
+name,year,genre,adult,budget,c_box_office,c_profit,c_profitable
+Braveheart,1995,History,yes,72000000.0,213216216.0,2.961336333333333,yes
+The Truman Show,1998,Comedy,no,60000000.0,264118201.0,4.401970016666667,yes
+The Elephant Man,1980,History,no,5000000.0,26023860.0,5.204772,yes
+The Big Lebowski,1998,Comedy,yes,15000000.0,46969409.0,3.131293933333333,yes
+Groundhog Day,1993,Comedy,no,14600000.0,71108591.0,4.870451438356165,yes

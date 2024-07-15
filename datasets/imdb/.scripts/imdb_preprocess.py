@@ -5,7 +5,7 @@ The result dataset is meant to fulfill the following criteria:
 - 2 numeric colums with different ranges
 - 1 binary column
 - 1 categorical column (more than 2 categories)
-- 1 numeric class column
+- 1 class that can be represented as numeric, ratio or binary
 - No more than 20 rows
 
 The dataset used is 250IMDB (250 most rated movies in IMDb):
@@ -40,6 +40,16 @@ genre_transformation = {
     'Biography': 'History',
     'Crime': 'Action',
     'Documentary': 'History',
+    'War': 'History',
+    'Western': 'Action',
+    'Sci-Fi': 'Fantasy',
+    'Thriller': 'Mystery',
+    'Horror': 'Mystery',
+    'Film-Noir': 'Mystery',
+    'Musical': 'Family',
+    'Music': 'Family',
+    'Sport': 'Family',
+    'Romance': 'Family',
 }
 
 def translation_genre(genre):
@@ -48,67 +58,85 @@ def translation_genre(genre):
         return genre_transformation[genre]
     return genre
 
-def transform_genre_list(genre_list):
-    """Transform a list of genres"""
-    return ','.join({translation_genre(genre) for genre in genre_list})
-
-def valid_genre(movie_genres, valid_genres):
-    """Check if a movie has exactly one valid genre"""
-    valid = 0
-    for genre in movie_genres.split(','):
-        if genre in valid_genres:
-            valid += 1
-    return valid == 1
-
-def get_valid_genre(movie_genres, valid_genres):
-    """Get the valid genre of a movie (assuming has only one)"""
-    for genre in movie_genres.split(','):
-        if genre in valid_genres:
-            return genre
-    return None
-
-###############################################################################
-
-# Define the filters
-genres = ['History', 'Sci-Fi', 'Comedy']
-years = [2008, 2024]
-children_cert = ['G', 'PG', 'PG-13']
-
 ###############################################################################
 
 # Load the IMDb dataset
 db_original = pd.read_csv('original_imdb.csv')
 
-
 # Create a copy of the original DataFrame
 df = db_original.copy()
 
 # Transform genre list
-df['genre'] = df['genre'].apply(lambda x: transform_genre_list(x.split(',')))
+df['genre'] = df['genre'].apply(lambda x: translation_genre(x.split(',')[0]))
 
-# Filter films by genre
-filtered_genre = df[df['genre'].apply(lambda x: valid_genre(x, genres))]
-
-# Filter films between two years
-filtered_years = filtered_genre[(filtered_genre['year'] >= years[0]) & (filtered_genre['year'] <= years[1])]
-
-# Create new column 'genre' with filtered values
-filtered_years['theme'] = filtered_years['genre'].apply(lambda x: get_valid_genre(x, genres))
-
-# Create new column 'children' based on certificate
-filtered_years['adult'] = filtered_years['certificate'].apply(lambda x: 'no' if x in children_cert else 'yes')
-
-# Convert budget and box_office to numeric
-filtered_years['budget'] = filtered_years['budget'].apply(convert_to_numeric)
-filtered_years['box_office'] = filtered_years['box_office'].apply(convert_to_numeric)
-
-# Remove NaN values
-filtered_years.dropna(subset=['budget', 'box_office'], inplace=True)
+# Create new column 'adult' based on certificate
+children_cert = ['G', 'PG', 'PG-13']
+df['adult'] = df['certificate'].apply(lambda x: 'no' if x in children_cert else 'yes')
 
 # Select required columns
-result = filtered_years[['name', 'year', 'theme', 'adult', 'budget', 'box_office']]
+df = df[['name', 'year', 'genre', 'adult', 'budget', 'box_office']]
 
 ###############################################################################
+# Save the whole dataset in raw
+df.to_csv('../imdb_raw.csv', index=False)
+###############################################################################
 
-# Save the result
-result.to_csv('../imdb.csv', index=False)
+# Convert budget and box_office to numeric
+df['budget'] = df['budget'].apply(convert_to_numeric)
+df['box_office'] = df['box_office'].apply(convert_to_numeric)
+
+# Remove rows with NaN values
+df = df.dropna()
+
+# Create a new column 'profit'
+df['c_profit'] = (df['box_office']) / df['budget']
+
+# Change name of box_office to c_box_office
+df = df.rename(columns={'box_office': 'c_box_office'})
+
+# Create new column 'c_profitable' based on profit
+df['c_profitable'] = df['c_profit'].apply(lambda x: 'yes' if x > 1 else 'no')
+
+# Define the filters
+genres = ['History', 'Comedy', 'Family']
+years = [1980, 1999]
+
+# Filter films by genre
+df = df[df['genre'].isin(genres)]
+
+# Filter films between two years
+df = df[(df['year'] >= years[0]) & (df['year'] <= years[1])]
+
+
+###############################################################################
+# Save the result filtered
+df.to_csv('../imdb_no_filter.csv', index=False)
+###############################################################################
+
+# Remove abnormal data
+abnormal = ['Princess Mononoke', 'The Lion King']
+
+# Filter the films
+df = df[~df['name'].isin(abnormal)]
+
+###############################################################################
+# Save the result filtered
+df.to_csv('../imdb.csv', index=False)
+###############################################################################
+
+# Select specific values
+films = [
+    "Braveheart",
+    "The Big Lebowski",
+    "The Truman Show",
+    "Groundhog Day",
+    "The Elephant Man",
+]
+
+# Filter the films
+df = df[df['name'].isin(films)]
+
+###############################################################################
+# Save the result reduced
+df.to_csv('../imdb_reduced.csv', index=False)
+###############################################################################
