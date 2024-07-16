@@ -100,6 +100,9 @@ df = df[['name', 'year', 'genre', 'adult', 'budget', 'box_office']]
 df.to_csv('../imdb_raw.csv', index=False)
 ###############################################################################
 
+# Ranges to consider a film successful
+budget_range = [2, 5]
+
 # Convert budget and box_office to numeric
 df['budget'] = df['budget'].apply(convert_to_numeric)
 df['box_office'] = df['box_office'].apply(convert_to_numeric)
@@ -114,7 +117,7 @@ df['c_profit'] = (df['box_office']) / df['budget']
 df = df.rename(columns={'box_office': 'c_box_office'})
 
 # Create new column 'c_performance' based on profit
-df['c_performance'] = df['c_profit'].apply(lambda x: 'great' if x > 2.5 else 'expected' if x > 1 else 'bad')
+df['c_performance'] = df['c_profit'].apply(lambda x: 'great' if x > budget_range[1] else 'expected' if x > budget_range[0] else 'bad')
 
 ###############################################################################
 # Save the whole dataset
@@ -149,13 +152,7 @@ df.to_csv('../imdb.csv', index=False)
 ###############################################################################
 
 # Select specific values
-films = [
-    "The Iron Giant",
-    "American History X",
-    "Reservoir Dogs",
-    "Heat",
-    "Forrest Gump",
-]
+films = ["The Iron Giant", "American History X", "Casino", "Reservoir Dogs", "Heat", "Forrest Gump",]
 
 # Filter the films
 df = df[df['name'].isin(films)]
