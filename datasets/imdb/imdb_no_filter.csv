@@ -1,21 +1,21 @@
 name,year,genre,adult,budget,c_box_office,c_profit,c_performance
-Pulp Fiction,1994,Action,yes,8000000.0,213928762.0,26.74109525,great
-Forrest Gump,1994,Family,no,55000000.0,678226465.0,12.331390272727273,great
-Se7en,1995,Mystery,yes,33000000.0,327333559.0,9.919198757575758,great
-The Silence of the Lambs,1991,Mystery,yes,19000000.0,272742922.0,14.354890631578947,great
-Life Is Beautiful,1997,Family,no,20000000.0,230098753.0,11.50493765,great
-The Lion King,1994,Family,no,45000000.0,968511805.0,21.522484555555554,great
-American History X,1998,Action,yes,20000000.0,23875127.0,1.19375635,bad
-The Usual Suspects,1995,Mystery,yes,6000000.0,23341568.0,3.890261333333333,expected
-Toy Story,1995,Family,no,30000000.0,394436586.0,13.1478862,great
-Princess Mononoke,1997,Family,no,2400000000.0,170005875.0,0.07083578125,bad
-Reservoir Dogs,1992,Mystery,yes,1200000.0,2913644.0,2.428036666666667,expected
-Heat,1995,Action,yes,60000000.0,187436818.0,3.123946966666667,expected
-L.A. Confidential,1997,Mystery,yes,35000000.0,126216940.0,3.6061982857142856,expected
-Casino,1995,Action,yes,52000000.0,116112375.0,2.2329302884615383,expected
-Unforgiven,1992,Action,yes,14400000.0,159167799.0,11.053319375,great
-The Sixth Sense,1999,Mystery,no,40000000.0,672806432.0,16.8201608,great
-Fargo,1996,Mystery,yes,7000000.0,60611975.0,8.65885357142857,great
-Before Sunrise,1995,Family,yes,2500000.0,5987386.0,2.3949544,expected
-The Iron Giant,1999,Family,no,70000000.0,23335817.0,0.3333688142857143,bad
-Dances with Wolves,1990,Action,no,22000000.0,424208848.0,19.282220363636362,great
+Pulp Fiction,1994,Action,yes,8.0,213.93,26.74,great
+Forrest Gump,1994,Family,no,55.0,678.23,12.33,great
+Se7en,1995,Mystery,yes,33.0,327.33,9.92,great
+The Silence of the Lambs,1991,Mystery,yes,19.0,272.74,14.35,great
+Life Is Beautiful,1997,Family,no,20.0,230.1,11.5,great
+The Lion King,1994,Family,no,45.0,968.51,21.52,great
+American History X,1998,Action,yes,20.0,23.88,1.19,bad
+The Usual Suspects,1995,Mystery,yes,6.0,23.34,3.89,expected
+Toy Story,1995,Family,no,30.0,394.44,13.15,great
+Princess Mononoke,1997,Family,no,2400.0,170.01,0.07,bad
+Reservoir Dogs,1992,Mystery,yes,1.2,2.91,2.43,expected
+Heat,1995,Action,yes,60.0,187.44,3.12,expected
+L.A. Confidential,1997,Mystery,yes,35.0,126.22,3.61,expected
+Casino,1995,Action,yes,52.0,116.11,2.23,expected
+Unforgiven,1992,Action,yes,14.4,159.17,11.05,great
+The Sixth Sense,1999,Mystery,no,40.0,672.81,16.82,great
+Fargo,1996,Mystery,yes,7.0,60.61,8.66,great
+Before Sunrise,1995,Family,yes,2.5,5.99,2.39,expected
+The Iron Giant,1999,Family,no,70.0,23.34,0.33,bad
+Dances with Wolves,1990,Action,no,22.0,424.21,19.28,great
