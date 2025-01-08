@@ -110,6 +110,10 @@ df['box_office'] = df['box_office'].apply(convert_to_numeric)
 # Remove rows with NaN values
 df = df.dropna()
 
+# Divide budget and box_office by 1M
+df['budget'] = df['budget'] / 1e6
+df['box_office'] = df['box_office'] / 1e6
+
 # Create a new column 'profit'
 df['c_profit'] = (df['box_office']) / df['budget']
 
@@ -118,6 +122,9 @@ df = df.rename(columns={'box_office': 'c_box_office'})
 
 # Create new column 'c_performance' based on profit
 df['c_performance'] = df['c_profit'].apply(lambda x: 'great' if x > budget_range[1] else 'expected' if x > budget_range[0] else 'bad')
+
+# Round every float column to 2 decimals
+df = df.round(2)
 
 ###############################################################################
 # Save the whole dataset
