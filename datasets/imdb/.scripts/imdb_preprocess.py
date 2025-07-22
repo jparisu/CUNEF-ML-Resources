@@ -131,6 +131,17 @@ df = df.round(2)
 df.to_csv('../imdb_all.csv', index=False)
 ###############################################################################
 
+# Remove abnormal data
+abnormal = ['Princess Mononoke', 'The Lion King', '3 Idiots']
+
+# Filter the films
+df = df[~df['name'].isin(abnormal)]
+
+###############################################################################
+# Save the result filtered
+df.to_csv('../imdb_filter.csv', index=False)
+###############################################################################
+
 # Define the filters
 genres = ['Mystery', 'Family', 'Action']
 years = [1990, 1999]
@@ -141,17 +152,6 @@ df = df[df['genre'].isin(genres)]
 # Filter films between two years
 df = df[(df['year'] >= years[0]) & (df['year'] <= years[1])]
 
-
-###############################################################################
-# Save the result filtered
-df.to_csv('../imdb_no_filter.csv', index=False)
-###############################################################################
-
-# Remove abnormal data
-abnormal = ['Princess Mononoke', 'The Lion King']
-
-# Filter the films
-df = df[~df['name'].isin(abnormal)]
 
 ###############################################################################
 # Save the result filtered
